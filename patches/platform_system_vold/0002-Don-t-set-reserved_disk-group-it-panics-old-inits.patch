@@ -15,7 +15,7 @@ index 7d14453..c27aeda 100644
      ioprio be 2
      writepid /dev/cpuset/foreground/tasks
      shutdown critical
--    group reserved_disk
+-    group root reserved_disk
 -- 
 2.7.4
 
