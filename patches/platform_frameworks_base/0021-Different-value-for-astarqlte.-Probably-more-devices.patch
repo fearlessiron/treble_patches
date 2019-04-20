@@ -1,7 +1,7 @@
-From 77abcff5d03b360866174c30eaf589b7ce7622f4 Mon Sep 17 00:00:00 2001
+From 340bc73de114424b4405876786b3c433682d37ed Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 10 Mar 2019 19:35:06 +0100
-Subject: [PATCH 21/22] Different value for astarqlte. Probably more devices to
+Subject: [PATCH 21/23] Different value for astarqlte. Probably more devices to
  add later
 
 ---

@@ -1,7 +1,7 @@
-From 4c8bc646c1d6ff62b947665c706d524708e21114 Mon Sep 17 00:00:00 2001
+From 7a855c58de59ba4fda00b07e540296ebf74b29e1 Mon Sep 17 00:00:00 2001
 From: Florian Esser <android-dev@fesr.de>
 Date: Sat, 20 Apr 2019 04:08:12 +0200
-Subject: [PATCH 22/22] Revert "Rotation related corrections"
+Subject: [PATCH 22/23] Revert "Rotation related corrections"
 
 This reverts commit 3da54b5c05f395296ec4d7fac8b4bedb0c3d5cf0.
 ---

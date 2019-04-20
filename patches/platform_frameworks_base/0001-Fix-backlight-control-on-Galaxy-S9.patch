@@ -1,7 +1,7 @@
-From e516703b0e41ba76b7a5a2b1ea465264b090bc8f Mon Sep 17 00:00:00 2001
+From d597c5a9f41b732a0ef7d95c76f488e4b3ba960b Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 24 Mar 2018 08:01:48 +0100
-Subject: [PATCH 01/22] Fix backlight control on Galaxy S9(+)
+Subject: [PATCH 01/23] Fix backlight control on Galaxy S9(+)
 
 ---
  services/core/java/com/android/server/lights/LightsService.java | 7 +++++++

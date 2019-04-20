@@ -1,7 +1,7 @@
-From 1d365a4f4eaa8e348a7266432224a94490266ac7 Mon Sep 17 00:00:00 2001
+From aa4054f03048b9f27ee755647221ec2327984996 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 2 Jul 2018 23:36:39 +0200
-Subject: [PATCH 10/22] "remaining" of HAL onEnroll is actually a percent of
+Subject: [PATCH 10/23] "remaining" of HAL onEnroll is actually a percent of
  progress
 
 ---

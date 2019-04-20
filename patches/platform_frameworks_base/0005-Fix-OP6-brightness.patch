@@ -1,7 +1,7 @@
-From 193045ad65de787f97f861375c14f026c9bfbf61 Mon Sep 17 00:00:00 2001
+From 71ee7af631e20871aa5b6f87564ffa1903a6851e Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <pierre-hugues.husson@softathome.com>
 Date: Thu, 7 Jun 2018 13:42:02 +0200
-Subject: [PATCH 05/22] Fix OP6 brightness
+Subject: [PATCH 05/23] Fix OP6 brightness
 
 ---
  .../core/java/com/android/server/lights/LightsService.java   | 12 ++++++++++++
