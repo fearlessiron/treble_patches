@@ -1,7 +1,7 @@
-From d6f620db49e75e1a460539d1ae5b403a9f025d8b Mon Sep 17 00:00:00 2001
+From ada1f960514e8c97ef729f9464300b5c5ec8446c Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 10 Jun 2018 22:54:55 +0200
-Subject: [PATCH 08/24] Try to make brightness more generic using property set
+Subject: [PATCH 06/22] Try to make brightness more generic using property set
  by rw-system
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH 08/24] Try to make brightness more generic using property set
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/services/core/java/com/android/server/lights/LightsService.java b/services/core/java/com/android/server/lights/LightsService.java
-index a77af44..4dc44de 100644
+index d47a66f..c9d4310 100644
 --- a/services/core/java/com/android/server/lights/LightsService.java
 +++ b/services/core/java/com/android/server/lights/LightsService.java
-@@ -62,9 +62,11 @@ public class LightsService extends SystemService {
+@@ -63,9 +63,11 @@ public class LightsService extends SystemService {
  
                      boolean qcomExtendBrightness = SystemProperties.getBoolean("persist.extend.brightness", false);
                      int scale = SystemProperties.getInt("persist.display.max_brightness", 1023);

@@ -1,17 +1,17 @@
-From 5c2cdaa8533ac293a72337b033e98a4f5d717a03 Mon Sep 17 00:00:00 2001
+From bc871ace61f3263c87d5da68c9276e0bcf0fd069 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 25 Jun 2018 22:43:32 +0200
-Subject: [PATCH 11/24] Add Qualcomm starlte
+Subject: [PATCH 09/22] Add Qualcomm starlte
 
 ---
  services/core/java/com/android/server/lights/LightsService.java | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/services/core/java/com/android/server/lights/LightsService.java b/services/core/java/com/android/server/lights/LightsService.java
-index 4dc44de..2886f29 100644
+index c9d4310..eedce15 100644
 --- a/services/core/java/com/android/server/lights/LightsService.java
 +++ b/services/core/java/com/android/server/lights/LightsService.java
-@@ -55,7 +55,9 @@ public class LightsService extends SystemService {
+@@ -56,7 +56,9 @@ public class LightsService extends SystemService {
  
                  if(mId == 0) {
                      String fp = SystemProperties.get("ro.vendor.build.fingerprint", "hello");

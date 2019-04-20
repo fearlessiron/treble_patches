@@ -1,18 +1,18 @@
-From 48c051885d378618166e1b7ce708275563968d01 Mon Sep 17 00:00:00 2001
+From 77abcff5d03b360866174c30eaf589b7ce7622f4 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 10 Mar 2019 19:35:06 +0100
-Subject: [PATCH] Different value for astarqlte. Probably more devices to add
- later
+Subject: [PATCH 21/22] Different value for astarqlte. Probably more devices to
+ add later
 
 ---
- .../java/com/android/server/lights/LightsService.java    | 9 +++++++++
+ services/core/java/com/android/server/lights/LightsService.java | 9 +++++++++
  1 file changed, 9 insertions(+)
 
 diff --git a/services/core/java/com/android/server/lights/LightsService.java b/services/core/java/com/android/server/lights/LightsService.java
-index 47c1d9297fe..e5299e456f5 100644
+index ea2e6f6..e79dea9 100644
 --- a/services/core/java/com/android/server/lights/LightsService.java
 +++ b/services/core/java/com/android/server/lights/LightsService.java
-@@ -55,6 +55,15 @@ public void setBrightness(int brightness, int brightnessMode) {
+@@ -56,6 +56,15 @@ public class LightsService extends SystemService {
  
                  if(mId == 0) {
                      String fp = SystemProperties.get("ro.vendor.build.fingerprint", "hello");
@@ -28,3 +28,6 @@ index 47c1d9297fe..e5299e456f5 100644
                      if(fp.matches(".*(crown|star)[q2]*lte.*") ||
  				    fp.matches(".*(SC-0[23]K|SCV3[89]).*")) {
                          int newBrightness = brightness * 100;
+-- 
+2.7.4
+

@@ -1,7 +1,7 @@
-From 8a822d5e7de060a39d9cce130e2620e148486434 Mon Sep 17 00:00:00 2001
+From 4d73c3b33e6417da5eb63ea500c6b375a059ceab Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 27 Aug 2018 00:47:13 +0200
-Subject: [PATCH 22/24] Add a property toggle to enable high brightness range
+Subject: [PATCH 17/22] Add a property toggle to enable high brightness range
  on samsung device
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH 22/24] Add a property toggle to enable high brightness range
  1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/services/core/java/com/android/server/lights/LightsService.java b/services/core/java/com/android/server/lights/LightsService.java
-index 2ad3877..89008ea 100644
+index 7d4a7fe..22e1a42 100644
 --- a/services/core/java/com/android/server/lights/LightsService.java
 +++ b/services/core/java/com/android/server/lights/LightsService.java
-@@ -56,7 +56,11 @@ public class LightsService extends SystemService {
+@@ -57,7 +57,11 @@ public class LightsService extends SystemService {
                  if(mId == 0) {
                      String fp = SystemProperties.get("ro.vendor.build.fingerprint", "hello");
                      if(fp.matches(".*(crown|star)[q2]*lte.*")) {

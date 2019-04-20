@@ -1,17 +1,18 @@
-From 8cdf614d084f763107d197852a7f6ba3db802b13 Mon Sep 17 00:00:00 2001
+From 480f277719720f3017d2fa17d78e165de1b31925 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 9 Dec 2018 16:31:44 +0100
-Subject: [PATCH] Use Samsung fingerprint percent thingy on all Samsung devices
+Subject: [PATCH 20/22] Use Samsung fingerprint percent thingy on all Samsung
+ devices
 
 ---
- .../java/com/android/server/fingerprint/FingerprintService.java | 2 +-
+ .../core/java/com/android/server/fingerprint/FingerprintService.java    | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/services/core/java/com/android/server/fingerprint/FingerprintService.java b/services/core/java/com/android/server/fingerprint/FingerprintService.java
-index 6f09433c002..8c2990b1999 100644
+index 57658d01..08d0283 100644
 --- a/services/core/java/com/android/server/fingerprint/FingerprintService.java
 +++ b/services/core/java/com/android/server/fingerprint/FingerprintService.java
-@@ -1048,7 +1048,7 @@ public void onEnrollResult(final long deviceId, final int fingerId, final int gr
+@@ -1057,7 +1057,7 @@ public class FingerprintService extends SystemService implements IHwBinder.Death
                  public void run() {
                      int remaining2 = remaining;
                      String fp = android.os.SystemProperties.get("ro.vendor.build.fingerprint");
@@ -20,3 +21,6 @@ index 6f09433c002..8c2990b1999 100644
                          remaining2 = 100 - remaining2;
                      handleEnrollResult(deviceId, fingerId, groupId, remaining2);
                  }
+-- 
+2.7.4
+
