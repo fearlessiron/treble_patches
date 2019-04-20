@@ -1,28 +1,27 @@
-From e86f299864109dacb311a714d7b2b2f682c3f13f Mon Sep 17 00:00:00 2001
-From: mar-v-in <github@rvin.mooo.com>
-Date: Mon, 21 Dec 2015 22:11:35 +0100
+From 7ede1a5d521f4366ac68b7ab0efa46378453eec0 Mon Sep 17 00:00:00 2001
+From: Florian Esser <android-dev@fesr.de>
+Date: Sat, 20 Apr 2019 11:12:06 +0200
 Subject: [PATCH 23/23] core: Add support for fake signatures, enabled per app
  by dynamic permission
 
-Change-Id: I456650338399abcbc22f97fa09fe50eb648b9e2e
 ---
- core/res/AndroidManifest.xml                       |  8 ++++++++
- core/res/res/values/cm_strings.xml                 |  5 +++++
+ core/res/AndroidManifest.xml                       |  7 +++++++
+ core/res/res/values/config.xml                     |  2 ++
+ core/res/res/values/strings.xml                    |  5 +++++
  .../android/server/pm/PackageManagerService.java   | 23 ++++++++++++++++++++--
- 3 files changed, 34 insertions(+), 2 deletions(-)
+ 4 files changed, 35 insertions(+), 2 deletions(-)
 
 diff --git a/core/res/AndroidManifest.xml b/core/res/AndroidManifest.xml
-index 34d26f0..6e48755 100644
+index 34d26f0..08f95ec 100644
 --- a/core/res/AndroidManifest.xml
 +++ b/core/res/AndroidManifest.xml
-@@ -2357,6 +2357,14 @@
+@@ -2357,6 +2357,13 @@
          android:description="@string/permdesc_getPackageSize"
          android:protectionLevel="normal" />
  
 +    <!-- @hide Allows an application to change the package signature as
-+         seen by applications -->
++	 seen by applications -->
 +    <permission android:name="android.permission.FAKE_PACKAGE_SIGNATURE"
-+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
 +        android:protectionLevel="dangerous"
 +        android:label="@string/permlab_fakePackageSignature"
 +        android:description="@string/permdesc_fakePackageSignature" />
@@ -30,24 +29,37 @@ index 34d26f0..6e48755 100644
      <!-- @deprecated No longer useful, see
           {@link android.content.pm.PackageManager#addPackageToPreferred}
           for details. -->
-diff --git a/core/res/res/values/cm_strings.xml b/core/res/res/values/cm_strings.xml
-index 301131e..e2e3e29 100644
---- a/core/res/res/values/cm_strings.xml
-+++ b/core/res/res/values/cm_strings.xml
-@@ -18,6 +18,11 @@
- -->
- <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
+index cf9bd12..2047c33 100644
+--- a/core/res/res/values/config.xml
++++ b/core/res/res/values/config.xml
+@@ -1682,6 +1682,8 @@
+     <string-array name="config_locationProviderPackageNames" translatable="false">
+         <!-- The standard AOSP fused location provider -->
+         <item>com.android.location.fused</item>
++        <!-- The (faked) microg fused location provider (a free reimplementation) -->
++        <item>com.google.android.gms</item>
+     </string-array>
  
-+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+     <!-- This string array can be overriden to enable test location providers initially. -->
+diff --git a/core/res/res/values/strings.xml b/core/res/res/values/strings.xml
+index f660046..bd96a09 100644
+--- a/core/res/res/values/strings.xml
++++ b/core/res/res/values/strings.xml
+@@ -786,6 +786,11 @@
+     <!--  Permissions -->
+ 
+     <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
 +    <string name="permlab_fakePackageSignature">Spoof package signature</string>
 +    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-+    <string name="permdesc_fakePackageSignature">Allows the app to pretend to be a different app and trick security systems.</string>
++    <string name="permdesc_fakePackageSignature">Allows the app to pretend to be a different app. Malicious applications might be able to use this to access private application data. Legitimate uses include an emulator pretending to be what it emulates. Grant this permission with caution only!</string>
 +
-     <!-- ADB over network notification -->
-     <string name="adb_net_active_notification_title">ADB over network enabled</string>
-     <!-- ADB over USB and network notification -->
++    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+     <string name="permlab_statusBar">disable or modify status bar</string>
+     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+     <string name="permdesc_statusBar">Allows the app to disable the status bar or add and remove system icons.</string>
 diff --git a/services/core/java/com/android/server/pm/PackageManagerService.java b/services/core/java/com/android/server/pm/PackageManagerService.java
-index 9b50a15..9a8391f 100644
+index 9b50a15..f12509e 100644
 --- a/services/core/java/com/android/server/pm/PackageManagerService.java
 +++ b/services/core/java/com/android/server/pm/PackageManagerService.java
 @@ -4001,8 +4001,9 @@ public class PackageManagerService extends IPackageManager.Stub
@@ -57,8 +69,8 @@ index 9b50a15..9a8391f 100644
 -            PackageInfo packageInfo = PackageParser.generatePackageInfo(p, gids, flags,
 -                    ps.firstInstallTime, ps.lastUpdateTime, permissions, state, userId);
 +            PackageInfo packageInfo = mayFakeSignature(p, PackageParser.generatePackageInfo(p, gids, flags,
-+                    ps.firstInstallTime, ps.lastUpdateTime, permissions, state, userId),
-+                    permissions);
++                ps.firstInstallTime, ps.lastUpdateTime, permissions, state, userId),
++                permissions);
  
              if (packageInfo == null) {
                  return null;
@@ -80,7 +92,7 @@ index 9b50a15..9a8391f 100644
 +        } catch (Throwable t) {
 +            // We should never die because of any failures, this is system code!
 +            Log.w("PackageManagerService.FAKE_PACKAGE_SIGNATURE", t);
-+        }
++	}
 +        return pi;
 +    }
 +
