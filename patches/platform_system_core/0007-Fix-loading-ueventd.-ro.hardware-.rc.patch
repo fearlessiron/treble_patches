@@ -1,7 +1,7 @@
 From aab8c023a7c7bf212dc8ca063239c8bd5a460128 Mon Sep 17 00:00:00 2001
 From: Sen Jiang <senj@google.com>
 Date: Wed, 18 Jul 2018 17:27:24 -0700
-Subject: [PATCH 7/9] Fix loading ueventd.${ro.hardware}.rc.
+Subject: [PATCH 07/10] Fix loading ueventd.${ro.hardware}.rc.
 
 Regression introduced in aosp/717324.
 

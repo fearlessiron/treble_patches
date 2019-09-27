@@ -1,7 +1,7 @@
 From 544b54a5a560262561b41bfce9735138d3aac7a8 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 7 Aug 2019 16:45:03 +0200
-Subject: [PATCH 9/9] Add a Samsung safeplace remover. It will reboot to
+Subject: [PATCH 09/10] Add a Samsung safeplace remover. It will reboot to
  recovery when it does so, just reboot normally
 
 Change-Id: Iaee40b23c4041ef8e89b9a3217c693ab02a1def4

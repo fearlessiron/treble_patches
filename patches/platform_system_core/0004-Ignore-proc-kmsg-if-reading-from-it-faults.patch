@@ -1,7 +1,7 @@
 From 27cb338aa0fa9f4863292389e1c3fe662b030cc5 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 2 Jan 2019 17:17:20 +0100
-Subject: [PATCH 4/9] Ignore /proc/kmsg if reading from it faults
+Subject: [PATCH 04/10] Ignore /proc/kmsg if reading from it faults
 
 On some devices, (The only known one is Y6 2018), reading from
 /proc/kmsg fails, with a status EFAULT

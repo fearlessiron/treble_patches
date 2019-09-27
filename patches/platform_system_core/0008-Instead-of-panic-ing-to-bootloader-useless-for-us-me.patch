@@ -1,7 +1,7 @@
 From 5cc2638b5cf4e386e74301934982756bd485dada Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 5 Aug 2019 21:19:45 +0200
-Subject: [PATCH 8/9] Instead of panic-ing to bootloader (useless for us mere
+Subject: [PATCH 08/10] Instead of panic-ing to bootloader (useless for us mere
  mortals), panic to recovery
 
 Change-Id: If3ff381de845e579814941f89e0a6699c9f8c0e0
