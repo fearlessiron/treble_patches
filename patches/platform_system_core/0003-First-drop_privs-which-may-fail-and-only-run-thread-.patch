@@ -1,7 +1,7 @@
-From 6b76c97ba38d63bfceb5da70b69a0320e0836c92 Mon Sep 17 00:00:00 2001
+From 51f63fdc8fa7144cb2bee8e5a8f8fef6db7a0447 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 14 Aug 2018 19:33:23 +0200
-Subject: [PATCH 03/10] First drop_privs (which may fail) and only run thread
+Subject: [PATCH 03/12] First drop_privs (which may fail) and only run thread
  that might be scheduled before us
 
 Change-Id: I118fb2d4beedbeecf5d3a8d255929d3be480b923
@@ -10,30 +10,30 @@ Change-Id: I118fb2d4beedbeecf5d3a8d255929d3be480b923
  1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/logd/main.cpp b/logd/main.cpp
-index 4af0d21f1..bb64fb46f 100644
+index fd3cdf877..4057347b8 100644
 --- a/logd/main.cpp
 +++ b/logd/main.cpp
-@@ -450,6 +450,12 @@ int main(int argc, char* argv[]) {
+@@ -440,6 +440,12 @@ int main(int argc, char* argv[]) {
          if (fdPmesg < 0) android::prdebug("Failed to open %s\n", proc_kmsg);
      }
  
 +    bool auditd =
 +        __android_logger_property_get_bool("ro.logd.auditd", BOOL_DEFAULT_TRUE);
 +    if (drop_privs(klogd, auditd) != 0) {
-+        return -1;
++        return EXIT_FAILURE;
 +    }
 +
      // Reinit Thread
      sem_init(&reinit, 0, 0);
      sem_init(&uidName, 0, 0);
-@@ -471,12 +477,6 @@ int main(int argc, char* argv[]) {
+@@ -461,12 +467,6 @@ int main(int argc, char* argv[]) {
          pthread_attr_destroy(&attr);
      }
  
 -    bool auditd =
 -        __android_logger_property_get_bool("ro.logd.auditd", BOOL_DEFAULT_TRUE);
 -    if (drop_privs(klogd, auditd) != 0) {
--        return -1;
+-        return EXIT_FAILURE;
 -    }
 -
      // Serves the purpose of managing the last logs times read on a

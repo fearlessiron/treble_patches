@@ -1,25 +1,27 @@
-From 45a6c3c9dbebc60e2514f3a2e017bcb57e4e76f5 Mon Sep 17 00:00:00 2001
+From d51e5d5a041f8404b5d62cfca5f5765588ded4fb Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 19 Aug 2018 23:07:24 +0200
-Subject: [PATCH 2/6] Ignore usage bits verification
+Subject: [PATCH 2/5] Ignore usage bits verification
 
 This didn't ignore as of 8.1, so we're ""safe""
+
+Change-Id: I40c1d588c1fa104d844322b469f76e52bee1495a
 ---
  libs/ui/Gralloc2.cpp | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/libs/ui/Gralloc2.cpp b/libs/ui/Gralloc2.cpp
-index b92cbf351..1c0e5d5ea 100644
+index 5dc453005..90dc90f39 100644
 --- a/libs/ui/Gralloc2.cpp
 +++ b/libs/ui/Gralloc2.cpp
-@@ -92,7 +92,7 @@ Gralloc2::Error Mapper::validateBufferDescriptorInfo(
-     if (descriptorInfo.usage & ~validUsageBits) {
+@@ -108,7 +108,7 @@ status_t Gralloc2Mapper::validateBufferDescriptorInfo(
+     if (descriptorInfo->usage & ~validUsageBits) {
          ALOGE("buffer descriptor contains invalid usage bits 0x%" PRIx64,
-               descriptorInfo.usage & ~validUsageBits);
--        return Error::BAD_VALUE;
-+        //return Error::BAD_VALUE;
+               descriptorInfo->usage & ~validUsageBits);
+-        return BAD_VALUE;
++        //return BAD_VALUE;
      }
-     return Error::NONE;
+     return NO_ERROR;
  }
 -- 
 2.17.1

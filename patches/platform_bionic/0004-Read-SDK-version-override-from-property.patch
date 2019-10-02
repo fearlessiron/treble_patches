@@ -1,7 +1,7 @@
-From 3809fd785286428028b76bc19e6ed6797b7ca81f Mon Sep 17 00:00:00 2001
+From e77d8ff8326def1d6b457bfd4c8b232dc58dd7cb Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Thu, 3 Jan 2019 17:50:03 +0100
-Subject: [PATCH 4/4] Read SDK version override from property
+Subject: [PATCH 4/6] Read SDK version override from property
 
 Change-Id: I88ca5d0bde15ee4f2b2bd1255e98f9592973dbf9
 ---
@@ -9,10 +9,10 @@ Change-Id: I88ca5d0bde15ee4f2b2bd1255e98f9592973dbf9
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/linker/linker.cpp b/linker/linker.cpp
-index 0ce60dfb2..f8c692cf7 100644
+index ccdb131ca..f45a40b9d 100644
 --- a/linker/linker.cpp
 +++ b/linker/linker.cpp
-@@ -3861,7 +3861,9 @@ std::vector<android_namespace_t*> init_default_namespaces(const char* executable
+@@ -4218,7 +4218,9 @@ std::vector<android_namespace_t*> init_default_namespaces(const char* executable
    }
  
    uint32_t target_sdk = config->target_sdk_version();
@@ -23,7 +23,7 @@ index 0ce60dfb2..f8c692cf7 100644
    for (const auto& entry : android::base::Split(SDK_VERSION_OVERRIDES, " ")) {
      auto splitted = android::base::Split(entry, "=");
      if (splitted.size() == 2 && splitted[0] == executable_path) {
-@@ -3870,7 +3872,7 @@ std::vector<android_namespace_t*> init_default_namespaces(const char* executable
+@@ -4227,7 +4229,7 @@ std::vector<android_namespace_t*> init_default_namespaces(const char* executable
      }
    }
    DEBUG("Target SDK for %s = %d", executable_path, target_sdk);

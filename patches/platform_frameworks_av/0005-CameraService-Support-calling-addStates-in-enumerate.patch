@@ -1,4 +1,4 @@
-From 8b6233c78253f4b495946e694ae6a85402ab52b5 Mon Sep 17 00:00:00 2001
+From a5bc47c2602ae78b0471e8f55538a4cca083decf Mon Sep 17 00:00:00 2001
 From: Artem Borisov <dedsa2002@gmail.com>
 Date: Tue, 25 Sep 2018 12:39:22 +0300
 Subject: [PATCH 05/11] CameraService: Support calling addStates in
@@ -18,36 +18,35 @@ Enable TARGET_CAMERA_NEEDS_ADD_STATES_IN_ENUMERATE when it is necessary.
 
 Change-Id: Ife25b9753fdb679ab0c77f385e1b8527551a4711
 ---
- .../camera/libcameraservice/CameraService.cpp   | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ .../camera/libcameraservice/CameraService.cpp    | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
 diff --git a/services/camera/libcameraservice/CameraService.cpp b/services/camera/libcameraservice/CameraService.cpp
-index 5bc9087b4..88f7be83b 100644
+index 12ab2f47e..d208a36a9 100644
 --- a/services/camera/libcameraservice/CameraService.cpp
 +++ b/services/camera/libcameraservice/CameraService.cpp
-@@ -181,6 +181,21 @@ status_t CameraService::enumerateProviders() {
+@@ -204,6 +204,20 @@ status_t CameraService::enumerateProviders() {
  
      for (auto& cameraId : deviceIds) {
          String8 id8 = String8(cameraId.c_str());
-+
-+    if (property_get_bool("persist.sys.camera.huawei", false)) {
-+        bool cameraFound = false;
-+        {
-+            Mutex::Autolock lock(mCameraStatesLock);
-+            auto iter = mCameraStates.find(id8);
-+            if (iter != mCameraStates.end()) {
-+                cameraFound = true;
++        if (property_get_bool("persist.sys.camera.huawei", false)) {
++            bool cameraFound = false;
++            {
++                Mutex::Autolock lock(mCameraStatesLock);
++                auto iter = mCameraStates.find(id8);
++                if (iter != mCameraStates.end()) {
++                    cameraFound = true;
++                }
++            }
++            if (!cameraFound) {
++                addStates(id8);
 +            }
 +        }
-+        if (!cameraFound) {
-+            addStates(id8);
-+        }
-+    }
 +
-         onDeviceStatusChanged(id8, CameraDeviceStatus::PRESENT);
-     }
- 
-@@ -279,8 +294,10 @@ void CameraService::onDeviceStatusChanged(const String8& id,
+         if (getCameraState(id8) == nullptr) {
+             onDeviceStatusChanged(id8, CameraDeviceStatus::PRESENT);
+         }
+@@ -317,8 +331,10 @@ void CameraService::onDeviceStatusChanged(const String8& id,
              ALOGI("%s: Unknown camera ID %s, a new camera is added",
                      __FUNCTION__, id.string());
  

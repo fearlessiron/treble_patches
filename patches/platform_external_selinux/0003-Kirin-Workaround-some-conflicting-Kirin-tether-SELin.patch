@@ -1,7 +1,7 @@
-From e8790f87dd3498d95e82e091ab6929c0a89b2822 Mon Sep 17 00:00:00 2001
+From 0883dddcc377f9c8c271b4ee1b5796cca6b9938c Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 3 Dec 2018 20:54:54 +0100
-Subject: [PATCH 3/4] ::Kirin:: Workaround some conflicting Kirin tether
+Subject: [PATCH 3/6] ::Kirin:: Workaround some conflicting Kirin tether
  SELinux context
 
 Some Kirin devices declared some android.hardware.tetheroffload HALs,
@@ -15,7 +15,7 @@ This most likely kills tetheroffload for those devices.
  1 file changed, 10 insertions(+)
 
 diff --git a/libselinux/src/label_backends_android.c b/libselinux/src/label_backends_android.c
-index eaca5947..cf842188 100644
+index eaca5947..ab92985b 100644
 --- a/libselinux/src/label_backends_android.c
 +++ b/libselinux/src/label_backends_android.c
 @@ -62,6 +62,16 @@ static int nodups_specs(struct saved_data *data)
@@ -24,12 +24,12 @@ index eaca5947..cf842188 100644
  						    curr_spec->lr.ctx_raw)) {
 +					if(strcmp(spec_arr[jj].lr.ctx_raw, "u:object_r:hal_ipacm_hwservice:s0") == 0) {
 +						free(spec_arr[jj].lr.ctx_raw);
-+						spec_arr[jj].lr.ctx_raw = "u:object_r:hal_tetheroffload_hwservice:s0";
++						spec_arr[jj].lr.ctx_raw = strdup("u:object_r:hal_tetheroffload_hwservice:s0");
 +						continue;
 +					}
 +					if(strcmp(curr_spec->lr.ctx_raw, "u:object_r:hal_ipacm_hwservice:s0") == 0) {
 +						free(curr_spec->lr.ctx_raw);
-+						curr_spec->lr.ctx_raw = "u:object_r:hal_tetheroffload_hwservice:s0";
++						curr_spec->lr.ctx_raw = strdup("u:object_r:hal_tetheroffload_hwservice:s0");
 +						continue;
 +					}
  					rc = -1;

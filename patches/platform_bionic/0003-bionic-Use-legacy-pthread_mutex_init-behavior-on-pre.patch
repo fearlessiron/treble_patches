@@ -1,7 +1,7 @@
-From 520a3bdfe3f5918880bbf6d0c190229ec84e173d Mon Sep 17 00:00:00 2001
+From 45eed08a80644561adc9e103e7d58af691afeb86 Mon Sep 17 00:00:00 2001
 From: nx111 <gd.zhangdz@gmail.com>
 Date: Wed, 3 Oct 2018 16:58:19 +0800
-Subject: [PATCH 3/4] bionic: Use legacy pthread_mutex_init() behavior on pre-P
+Subject: [PATCH 3/6] bionic: Use legacy pthread_mutex_init() behavior on pre-P
  API levels
 
 * Google's changes to pthread_mutex_init is breaking RIL
@@ -15,10 +15,10 @@ Change-Id: I41335c5c436fa28a66d044e6634466556dfd7f95
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/libc/bionic/pthread_mutex.cpp b/libc/bionic/pthread_mutex.cpp
-index 9355a6030..517e52688 100644
+index f006bb92d..969feb43c 100644
 --- a/libc/bionic/pthread_mutex.cpp
 +++ b/libc/bionic/pthread_mutex.cpp
-@@ -526,7 +526,8 @@ int pthread_mutex_init(pthread_mutex_t* mutex_interface, const pthread_mutexattr
+@@ -527,7 +527,8 @@ int pthread_mutex_init(pthread_mutex_t* mutex_interface, const pthread_mutexattr
          return EINVAL;
      }
  
